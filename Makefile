@@ -7,8 +7,8 @@
 # Commands (## comments for description)
 # -----------------------------------------------------------------------------
 .PHONY: fetch
-fetch: ## Fetches a day's data
-	curl 'https://adventofcode.com/2022/day/${AOC_DAY}/input' -H "cookie: session=${ADVENT_OF_CODE_TOKEN}" > data/day${AOC_DAY}.txt
+fetch: ## Fetches a day's inputs
+	curl 'https://adventofcode.com/2022/day/${AOC_DAY}/input' -H "cookie: session=${ADVENT_OF_CODE_TOKEN}" > inputs/day${AOC_DAY}.txt
 
 .PHONY: run
 run: ## Runs a day

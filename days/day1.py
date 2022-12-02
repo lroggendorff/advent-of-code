@@ -11,6 +11,6 @@ def answer_part_two(data):
 
 
 if __name__ == "__main__":
-    data = open("data/day1.txt").read()
+    data = open("inputs/day1.txt").read()
     print(answer(data.strip()))
     print(answer_part_two(data.strip()))
