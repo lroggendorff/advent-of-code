@@ -34,12 +34,26 @@ def sum_hunnit_kays(filesystem):
     return sum([filesystem[path] for path in hunnits])
 
 
+TOTAL_DISK_SPACE = 70000000
+NEEDED_FOR_UPDATE = 30000000
+def find_deletable(filesystem):
+    deletable = []
+    current_free = TOTAL_DISK_SPACE - filesystem["/"]
+    for path, size in filesystem.items():
+        if path == "/":
+            continue
+        after_deleted = current_free + size
+        if after_deleted >= NEEDED_FOR_UPDATE:
+            deletable.append(size)
+    return sorted(deletable)[0]
+
+
 def answer(data):
     return sum_hunnit_kays(build_fs(data))
 
 
 def answer_part_two(data):
-    pass
+    return find_deletable(build_fs(data))
 
 
 if __name__ == "__main__":
