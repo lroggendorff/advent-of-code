@@ -1,4 +1,4 @@
-from days.day8 import (
+from aoc2022.days.day8 import (
     answer,
     answer_part_two,
 )
