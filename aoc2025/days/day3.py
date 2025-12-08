@@ -21,7 +21,27 @@ def answer(data):
     return sum(high_joltage)
 
 def answer_part_two(data):
-    return 0
+    banks = [b.strip() for b in data.split("\n")]
+    high_joltage = 0
+    for bank in banks:
+        integers = [int(b) for b in bank]
+        # count down from the necessary amount of batteries (12)
+        for i in range(11, -1, -1):
+            battery_location = 0
+            if i == 0:  # we only need on more battery
+                largest_battery = max(integers)
+            else:
+                # the max of integers remaining in the bank
+                largest_battery = max(integers[:-i])
+            # find where that battery value is
+            battery_location = integers.index(largest_battery)
+            # and update the bank to drop any intervening values
+            integers = integers[battery_location + 1:]
+            # multiply by 10 to the power of the current location to pad with zeros
+            # and add to the total
+            high_joltage += largest_battery * (10 ** i)
+
+    return high_joltage
 
 
 if __name__ == "__main__":

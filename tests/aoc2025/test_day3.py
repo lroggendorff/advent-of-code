@@ -16,6 +16,9 @@ def test_answer():
 
 def test_answer_part_two():
     data = """
-
+        987654321111111
+        811111111111119
+        234234234234278
+        818181911112111
     """
-    assert answer_part_two(data.strip()) == 0
+    assert answer_part_two(data.strip()) == 3121910778619
