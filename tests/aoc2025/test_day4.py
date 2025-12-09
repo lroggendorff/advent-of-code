@@ -22,6 +22,15 @@ def test_answer():
 
 def test_answer_part_two():
     data = """
-
+        ..@@.@@@@.
+        @@@.@.@.@@
+        @@@@@.@.@@
+        @.@@@@..@.
+        @@.@@@@.@@
+        .@@@@@@@.@
+        .@.@.@.@@@
+        @.@@@.@@@@
+        .@@@@@@@@.
+        @.@.@@@.@.
     """
-    assert answer_part_two(data.strip()) == 0
+    assert answer_part_two(data.strip()) == 43

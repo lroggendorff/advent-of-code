@@ -1,11 +1,13 @@
+from copy import deepcopy
 import pathlib
 
 
-def answer(data):
-    matrix = [list(row.strip()) for row in data.split("\n")]
+def find_accessible_rolls(matrix):
     east_edge = len(matrix[0]) - 1
     south_edge = len(matrix) - 1
-    accessible_rolls = 0
+
+    accessible_rolls = []
+
     for y, row in enumerate(matrix):
         for x, spot in enumerate(row):
             if spot != "@":
@@ -88,13 +90,36 @@ def answer(data):
                 surrounding_spots.append(matrix[y][x - 1])
 
             if len([s for s in surrounding_spots if s == "@"]) < 4:
-                accessible_rolls += 1
+                accessible_rolls.append((x, y))
 
     return accessible_rolls
 
 
+def answer(data):
+    matrix = [list(row.strip()) for row in data.split("\n")]
+    return len(find_accessible_rolls(matrix))
+
+
 def answer_part_two(data):
-    return 0
+    matrix = [list(row.strip()) for row in data.split("\n")]
+    found_accessible_roll_coordinates = find_accessible_rolls(matrix)
+    found_accessible_rolls = len(found_accessible_roll_coordinates)
+    removed_rolls = 0
+    while found_accessible_rolls > 0:
+        found_accessible_roll_coordinates = find_accessible_rolls(matrix)
+        found_accessible_rolls = len(found_accessible_roll_coordinates)
+
+        next_matrix = deepcopy(matrix)
+        for y, row in enumerate(matrix):
+            for x, _ in enumerate(row):
+                if (x, y) in found_accessible_roll_coordinates:
+                    next_matrix[y][x] = "."
+                    removed_rolls += 1
+
+        matrix = next_matrix
+
+    return removed_rolls
+
 
 
 if __name__ == "__main__":
