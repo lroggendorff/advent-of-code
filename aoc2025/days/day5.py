@@ -17,7 +17,36 @@ def answer(data):
 
 
 def answer_part_two(data):
-    return 0
+    ingredient_ranges, _ = data.split("\n\n")
+    ingredient_ranges = [r.split("-") for r in ingredient_ranges.split("\n")]
+    ingredient_ranges = [[int(lower), int(upper)] for lower, upper in ingredient_ranges]
+
+    found_unmerged = True
+
+    sorted_ranges = sorted(ingredient_ranges, key=lambda r: r[0])
+    maybe_non_overlapping_ranges = []
+    while found_unmerged:
+        maybe_non_overlapping_ranges = [sorted_ranges[0]]
+
+        found_unmerged = False
+        for current_range in sorted_ranges[1:]:
+            previous_range = maybe_non_overlapping_ranges[-1]
+
+            if current_range[0] <= previous_range[1]:
+                previous_range[1] = max(previous_range[1], current_range[1])
+                found_unmerged = True
+            else:
+                maybe_non_overlapping_ranges.append(current_range)
+
+        sorted_ranges = sorted(maybe_non_overlapping_ranges, key=lambda r: r[0])
+
+    non_overlapping_ranges = maybe_non_overlapping_ranges
+
+    considered_fresh = 0
+    for non_overlapping_range in non_overlapping_ranges:
+        considered_fresh += int(non_overlapping_range[1]) - int(non_overlapping_range[0]) + 1
+
+    return considered_fresh
 
 
 if __name__ == "__main__":

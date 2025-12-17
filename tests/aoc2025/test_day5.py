@@ -23,6 +23,26 @@ def test_answer():
 
 def test_answer_part_two():
     data = """
+        3-5
+        10-14
+        16-20
+        12-18
 
+        _
     """
-    assert answer_part_two(data.strip()) == 0
+    assert answer_part_two(data.strip()) == 14
+
+
+def test_answer_part_two_more_samples():
+    data = """
+        3-5
+        6-8
+        10-14
+        16-20
+        12-18
+        30-42
+        22-35
+
+        _
+    """
+    assert answer_part_two(data.strip()) == 38
