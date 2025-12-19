@@ -34,7 +34,7 @@ watch: ## Run Python tests and watch for changes
 
 
 .PHONY: test
-test: ## Run tests (see also: make [test-js, test-py])
+test: ## Run tests
 	pytest
 
 .PHONY: help
