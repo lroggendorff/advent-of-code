@@ -24,10 +24,30 @@ def answer(data):
 
 
 def answer_part_two(data):
-    return 0
+    lines = data.split("\n")[:-1]
+    problems = list(zip(*lines, strict=True))
+    answer = 0
+    total = 0
+    parts = []
+    for problem in reversed(problems):
+        operator = [p for p in problem if p in "+*"]
+        if operator:
+            parts.append(int("".join([p for p in problem if p not in "+*"])))
+            operator = operator[0]
+            answer = 0
+            if operator == "+":
+                answer = sum(parts)
+            else:
+                answer = math.prod(parts)
+            total += answer
+            parts = []
+        elif [p for p in problem if p != " "]:
+            parts.append(int("".join(problem)))
+
+    return total
 
 
 if __name__ == "__main__":
     data = open(pathlib.Path(__file__).parent.parent / "inputs/day6.txt").read()
     print(answer(data.strip()))
-    print(answer_part_two(data.strip()))
+    print(answer_part_two(data))
